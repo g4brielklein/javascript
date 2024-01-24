@@ -1,18 +1,16 @@
-const database = require('./database');
+const prompt = require('prompt-sync')({ sigint: true });
+const bookDAO = require('./dao/bookDAO');
 
 checkIfIdAlreadyExists = async (id) => {
-    const foundedId = await database.query({
-        text: "SELECT id FROM books WHERE id = $1",
-        values: [id]
-    });
+    const foundedId = await bookDAO.getBookById(id);
 
     return foundedId.rows[0];
 }
 
 createNewId = async () => {
-    const lastBookId = await database.query("SELECT MAX(id) FROM books;");
+    const lastBookId = await bookDAO.getLastAddedBook();
 
-    const newId = lastBookId.rows[0].max + 1
+    const newId = lastBookId.rows[0].id + 1
 
     const idAlreadyExists = await checkIfIdAlreadyExists(newId);
 
@@ -28,4 +26,12 @@ showSuccessMessage = (action) => {
     console.log(`\n${actionMessage}\n`)
 }
 
-module.exports = { checkIfIdAlreadyExists, createNewId, showSuccessMessage };
+handleContinueOperations = (callBackFunction) => {
+    const wantToContinue = prompt('Do you want to do another operation? (yes/no) ')
+
+    if (wantToContinue === 'yes') {
+        callBackFunction.activate()
+    }
+}
+
+module.exports = { checkIfIdAlreadyExists, createNewId, showSuccessMessage, handleContinueOperations };
