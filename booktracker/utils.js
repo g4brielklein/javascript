@@ -30,7 +30,7 @@ handleContinueOperations = (callBackFunction) => {
     const wantToContinue = prompt('Do you want to do another operation? (yes/no) ')
 
     if (wantToContinue === 'yes') {
-        callBackFunction.activate()
+        callBackFunction.activate(true)
     }
 }
 
