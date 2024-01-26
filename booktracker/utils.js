@@ -27,10 +27,12 @@ showSuccessMessage = (action) => {
 }
 
 handleContinueOperations = (callBackFunction) => {
-    const wantToContinue = prompt('Do you want to do another operation? (yes/no) ')
+    const wantToContinue = prompt('Do you want to do another operation? (yes/no) ').toLowerCase();
 
-    if (wantToContinue === 'yes') {
-        callBackFunction.activate(true)
+    if (wantToContinue === 'yes' || wantToContinue === 'y' || wantToContinue === '') {
+        return callBackFunction.activate();
+    } else if (wantToContinue === 'no' || wantToContinue === 'n') {
+        return console.log('Operation finished')
     }
 }
 

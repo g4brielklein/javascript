@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "dotenv": "^16.3.2",
+    "keypress": "^0.2.1",
     "pg": "^8.11.3",
     "prompt-sync": "^4.2.0"
   },
   "name": "booktracker",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node app.js"

@@ -1,48 +1,47 @@
 const bookController = require('./controllers/bookController');
-const readline = require('readline');
+const keypress = require('keypress');
 
-const operations = ['create', 'read (show all)', 'update', 'delete'];
+const operations = ['create', 'read (show all)', 'update', 'delete', 'status'];
+keypress(process.stdin);
+process.stdin.setRawMode(true);
+process.stdin.on('keypress', handleKeyPress);
 
 activate();
 
-function activate(isRestarting) {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-    })
-
-    if (!isRestarting) {
-        rl.input.on('keypress', handleKeyPress);
-    }
-
+function activate() {
+    process.stdin.resume();
     selectedItem = 0;
+
     displayOptions();
+}
 
-    function displayOptions() {
-        console.clear();
-        console.log('Select the operation: ')
-    
-        operations.forEach((option, index) => {
-            index === selectedItem
-                ? console.log(`> ${option}`)
-                : console.log(option);
-        });
+function displayOptions() {
+    console.clear();
+    console.log('\n=== BookTracker v1.0 ===\n')
+
+    console.log('Select the operation: ')
+
+    operations.forEach((option, index) => {
+        index === selectedItem
+            ? console.log(`> ${option}`)
+            : console.log(option);
+    });
+
+    console.log('\n')
+}
+
+function handleKeyPress(ch, key) {
+    if (key.name === 'down' && selectedItem < operations.length - 1) {
+        selectedItem++;
+    } else if (key.name === 'up' && selectedItem > 0) {
+        selectedItem--;
+    }
+     else if (key.name === 'return') {
+        process.stdin.pause();
+        return handleOperationChoice(selectedItem);
     }
 
-    function handleKeyPress(key, info) {
-        if (info.name === 'down' && selectedItem < operations.length - 1) {
-            selectedItem++;
-        } else if (info.name === 'up' && selectedItem > 0) {
-            selectedItem--;
-        }
-         else if (info.name === 'return') {
-            rl.removeListener('keypress', handleKeyPress);
-            rl.close();
-            return handleOperationChoice(selectedItem);
-        }
-    
-        displayOptions();
-    }
+    displayOptions();
 }
 
 function handleOperationChoice(selectedItem) {
@@ -51,6 +50,7 @@ function handleOperationChoice(selectedItem) {
         {'read': 'showBooks'},
         {'update': 'updateBook'},
         {'delete': 'deleteBook'},
+        {'status': 'getStatus'},
     ];
     
     const validOp = Object.values(ops[selectedItem])[0]
