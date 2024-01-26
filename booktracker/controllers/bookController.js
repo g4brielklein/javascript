@@ -78,4 +78,26 @@ deleteBook = async (callBackFunction) => {
     utils.handleContinueOperations(callBackFunction);
 }
 
-module.exports = { createBook, showBooks, updateBook, deleteBook };
+getStatus = async (callBackFunction) => {
+    const status = await bookDAO.getStatusDAO();
+
+    let mostReadedAuthors = [];
+
+    status.mostReadedAuthors.forEach(author => {
+        mostReadedAuthors.push(author.author)
+    })
+
+    const statusTable = [
+        {
+            "Books stored": status.count.totalbooks,
+            "Authors stored": status.count.totalauthors,
+            "Most readed author(s)": mostReadedAuthors
+        },
+    ]
+
+    console.table(statusTable)
+
+    utils.handleContinueOperations(callBackFunction);
+}
+
+module.exports = { createBook, showBooks, updateBook, deleteBook, getStatus };

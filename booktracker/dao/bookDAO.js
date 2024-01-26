@@ -1,7 +1,7 @@
 const database = require('../database');
 
 showBooksDAO = async () => {
-    return database.query("SELECT * FROM books;");
+    return database.query("SELECT * FROM books ORDER BY id;");
 }
 
 createBookDAO = async (book) => {
@@ -40,4 +40,19 @@ getLastAddedBook = async () => {
     return database.query("SELECT * FROM books WHERE id = (SELECT MAX(id) FROM books);")
 }
 
-module.exports = { showBooksDAO, createBookDAO, updateBookDAO, deleteBookDAO, getBookById, getLastAddedBook };
+getStatusDAO = async () => {
+    const count = await database.query("SELECT count(*)::int AS totalBooks, count(DISTINCT author)::int AS totalAuthors FROM books;");
+    const mostReadedAuthors = await database.query(
+        `
+            WITH author_books_count AS (SELECT DISTINCT author, COUNT(1) AS count FROM books GROUP BY 1)
+        
+            SELECT author
+            FROM author_books_count
+            WHERE count = (SELECT MAX(count) FROM author_books_count);
+        `
+    );
+
+    return { count: count.rows[0], mostReadedAuthors: mostReadedAuthors.rows };
+}
+
+module.exports = { showBooksDAO, createBookDAO, updateBookDAO, deleteBookDAO, getBookById, getLastAddedBook, getStatusDAO };
