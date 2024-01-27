@@ -1,0 +1,16 @@
+{
+  "name": "movietracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch --no-warnings server.js"
+  },
+  "author": "gabrielklein",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.25.2"
+  }
+}
