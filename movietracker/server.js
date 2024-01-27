@@ -23,7 +23,8 @@ server.post('/movies', (req, res) => {
 })
 
 server.get('/movies', (req, res) => {
-    const movies = database.get();
+    const { id, releaseYear, search } = req.query
+    const movies = database.get({ id, releaseYear }, search);
 
     return res.send(movies);
 })

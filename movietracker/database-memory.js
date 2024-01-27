@@ -9,7 +9,7 @@ export class DatabaseMemory {
         this.#movies.set(movieId, movie);
     }
 
-    get() {
+    get(filters, search) {
         const moviesArray = Array.from(this.#movies.entries());
 
         const movies = moviesArray.map(movie => {
@@ -20,6 +20,43 @@ export class DatabaseMemory {
                 ...data
             }
         });
+
+        let filteredMovies = [];
+
+        if (filters.id || filters.releaseYear) {
+            let { id, releaseYear } = filters;
+
+            if (releaseYear) {
+                releaseYear = parseInt(releaseYear);
+            }
+
+            if (id) {
+                filteredMovies = movies.filter(movie => {
+                    return movie.id === id
+                })
+            }
+
+            if (!id && releaseYear) {
+                filteredMovies = movies.filter(movie => {
+                    return movie.releaseYear === releaseYear
+                })
+            }
+
+            if (id && releaseYear) {
+                filteredMovies = movies.filter(movie => {
+                    return movie.id === id
+                        && movie.releaseYear === releaseYear
+                })
+            }
+
+            return filteredMovies;
+        };
+
+        if (search) {
+            filteredMovies = movies.filter(movie => movie.name.includes(search));
+
+            return filteredMovies;
+        }
 
         return movies;
     }
