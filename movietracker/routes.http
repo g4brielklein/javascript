@@ -1,0 +1,39 @@
+GET http://localhost:3000/movies
+
+###
+
+POST http://localhost:3000/movies
+Content-type: application/json
+
+{
+    "name": "Matrix",
+    "releaseYear": 1999,
+    "gender": "Sci/Fi"
+}
+
+###
+
+PUT http://localhost:3000/movies/fda2c9b6-1287-4bdd-9f5f-2b952918ac35
+Content-type: application/json
+
+{
+    "name": "Back to the Future",
+    "releaseYear": 1985,
+    "gender": "Sci/Fi"
+}
+
+###
+
+DELETE http://localhost:3000/movies/04df0961-e3d8-43f6-9912-829f7bb23a59
+
+###
+
+GET http://localhost:3000/movies?search=Matrix
+
+###
+
+GET http://localhost:3000/movies?id=3d239f97-9b40-44b5-9b7b-d9a00b502f40
+
+###
+
+GET http://localhost:3000/movies?releaseYear=1999
