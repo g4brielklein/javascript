@@ -63,6 +63,6 @@ server.delete('/movies/:id', async (req, res) => {
     return res.status(204).send();
 })
 
-server.listen({ port: 3000 }, () => {
+server.listen({ port: 3000 || process.env.PORT }, () => {
     console.log("Server's running")
 });
