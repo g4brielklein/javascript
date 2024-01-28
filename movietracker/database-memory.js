@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto'
+import { randomUUID } from 'node:crypto';
 
 export class DatabaseMemory {
     #movies = new Map();
@@ -13,12 +13,12 @@ export class DatabaseMemory {
         const moviesArray = Array.from(this.#movies.entries());
 
         const movies = moviesArray.map(movie => {
-            const data = movie[1]
+            const data = movie[1];
 
             return {
                 id: movie[0],
                 ...data
-            }
+            };
         });
 
         let filteredMovies = [];
@@ -33,20 +33,20 @@ export class DatabaseMemory {
             if (id) {
                 filteredMovies = movies.filter(movie => {
                     return movie.id === id
-                })
+                });
             }
 
             if (!id && releaseYear) {
                 filteredMovies = movies.filter(movie => {
                     return movie.releaseYear === releaseYear
-                })
+                });
             }
 
             if (id && releaseYear) {
                 filteredMovies = movies.filter(movie => {
                     return movie.id === id
                         && movie.releaseYear === releaseYear
-                })
+                });
             }
 
             return filteredMovies;

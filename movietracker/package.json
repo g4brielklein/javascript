@@ -11,6 +11,8 @@
   "author": "gabrielklein",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^4.25.2"
+    "dotenv": "^16.4.1",
+    "fastify": "^4.25.2",
+    "pg": "^8.11.3"
   }
 }
