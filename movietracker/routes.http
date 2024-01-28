@@ -37,3 +37,7 @@ GET http://localhost:3000/movies?id=3d239f97-9b40-44b5-9b7b-d9a00b502f40
 ###
 
 GET http://localhost:3000/movies?releaseYear=1999
+
+###
+
+GET http://localhost:3000/movies?id=0f6a6f16-00d1-4ad9-b22f-f8d2804c7832&releaseYear=2013
