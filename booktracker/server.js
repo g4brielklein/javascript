@@ -1,7 +1,11 @@
 import Fastify from "fastify";
 import { BookController } from "./controllers/bookController.js";
+import cors from "@fastify/cors";
 
 const app = Fastify();
+await app.register(cors, {
+  origin: "http://localhost:5500",
+});
 
 const bookController = new BookController();
 
