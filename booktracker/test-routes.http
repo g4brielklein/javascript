@@ -1,0 +1,25 @@
+GET http://localhost:3333/
+
+###
+
+POST http://localhost:3333/books
+Content-type: application/json
+
+{
+    "name": "Steve Jobs",
+    "author": "Walter Isaacson"
+}
+
+###
+
+PUT http://localhost:3333/books/388f5e92-ab11-4033-b87c-1028f6427bca
+Content-type: application/json
+
+{
+    "name": "Steve Jobs",
+    "author": "Walter Isaacson"
+}
+
+###
+
+DELETE http://localhost:3333/books/388f5e92-ab11-4033-b87c-1028f6427bca
