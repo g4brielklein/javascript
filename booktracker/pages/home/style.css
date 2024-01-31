@@ -1,0 +1,18 @@
+main .content .menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+main .content .menu-container .menu-item {
+    display: flex;
+    background-color: rgba(0, 0, 0, .4);
+    padding: 8px 16px;
+    font-size: 18px;
+    border-radius: 16px;
+    justify-content: center;
+}
+
+main .content .menu-container .menu-item:hover {
+    background-color: rgba(0, 0, 0, .8);
+}
