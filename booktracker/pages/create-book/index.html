@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BookTracker</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="../global.css">
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <img src="https://cdn2.iconfinder.com/data/icons/boxicons-solid-vol-1/24/bxs-book-open-256.png" alt="">
+                <h1>BookTrackr</h1>
+            </header>
+            <div class="result-message">[]</div>
+            <main>
+                <div class="page-title">
+                    <a href="../home/">
+                        <img src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/back-alt-48.png" alt="Arrow pointing to left">
+                    </a>
+                    <h2>Create book</h2>
+                </div>
+                <div class="content">
+                    <div class="create-book-container">
+                        <div class="form-item">
+                            <label for="book-name">Book name: </label>
+                            <input type="text" id="book-name">
+                        </div>
+                        <div class="form-item">
+                            <label for="book-author">Book author: </label>
+                            <input type="text" id="book-author">
+                        </div>
+                        <div class="form-item">
+                            <input 
+                                type="button" 
+                                value="Create book" 
+                                class="form-button"
+                                onclick="successCreateBook()"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="../bookHandler.js"></script>
+    </body>
+</html>
