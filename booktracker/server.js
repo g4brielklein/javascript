@@ -9,13 +9,14 @@ await app.register(cors, {
 
 const bookController = new BookController();
 
-app.get("/", async (request, response) => {
+app.get('/', (request, response) => {
+  return response.redirect('/books');
+})
+
+app.get("/books", async (request, response) => {
   const books = await bookController.showBooks();
 
-  return response.send({
-    API: "BookTracker API",
-    books,
-  });
+  return response.send(books);
 });
 
 app.post("/books", async (request, response) => {
