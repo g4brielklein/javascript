@@ -63,23 +63,68 @@ const getBooks = async () => {
   books.data.forEach((book) => {
     let div = document.createElement('div')
     div.classList.add('book-item')
-    div.setAttribute('onclick', `handleBookClick('${book.id}')`)
     div.setAttribute('id', book.id)
     showBooksContainer.appendChild(div);
 
+    let bookInfo = document.createElement('div')
+    bookInfo.classList.add('book-info')
+    div.appendChild(bookInfo)
+
     let name = document.createElement('div')
     name.classList.add('book-name')
-    div.appendChild(name)
+    bookInfo.appendChild(name)
 
     let author = document.createElement('div')
     author.classList.add('book-author');
-    div.appendChild(author);
+    bookInfo.appendChild(author);
+
+    let bookActions = document.createElement('div')
+    bookActions.classList.add('book-actions')
+    div.appendChild(bookActions)
+
+    let actionButtonUpdate = document.createElement('ion-icon')
+    actionButtonUpdate.classList.add('action-button')
+    actionButtonUpdate.setAttribute('name', 'pencil-outline')
+    actionButtonUpdate.setAttribute('onclick', `updateBook('${book.id}')`)
+    bookActions.appendChild(actionButtonUpdate)
+
+    let actionButtonDelete = document.createElement('ion-icon')
+    actionButtonDelete.classList.add('action-button')
+    actionButtonDelete.setAttribute('name', 'trash-outline')
+    actionButtonDelete.setAttribute('onclick', `deleteBook('${book.id}')`)
+    bookActions.appendChild(actionButtonDelete)
 
     name.innerHTML = `<small>Name:</small> <strong>${book.name}</strong>`;
     author.innerHTML = `<small>Author:</small> ${book.author}`;
   })
 }
 
-const handleBookClick = (id) => {
-  console.log(`clicked - id = ${id}`)
+const updateBook = (id) => {
+  console.log(`update book - id = ${id}`)
+
+}
+
+const deleteBook = (id) => {
+  const APIUrlDelete = `${APIUrl}/${id}`
+
+  const didConfirm = window.confirm('Are you sure you want to delete this book?')
+
+  console.log(didConfirm)
+
+  if (didConfirm) {
+    axios.delete(APIUrlDelete, id)
+    .then(successDeleteBook)
+    .catch(errorDeleteBook)
+  }
+}
+
+function successDeleteBook () {
+  const previousBookCards = document.querySelectorAll('.book-item')
+  previousBookCards.forEach(bookCard => bookCard.remove());
+
+  getBooks()
+}
+
+function errorDeleteBook() {
+  console.log('error deleting book')
 }

@@ -68,7 +68,7 @@ a {
     justify-content: center;
     font-weight: bold;
     align-items: center;
-    line-height: 0;
+    height: 32px;
 }
 
 .container main .page-title h2 {
@@ -79,9 +79,14 @@ a {
     align-items: center;
 }
 
-.container main .page-title img {
-    align-items: center;
-    width: 32px;
+.container main .page-title .go-back-button {
+    padding: 4px;
+}
+
+.container main .page-title .go-back-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 4px;
+    border-radius: 4px;
 }
 
 .container main .content {
