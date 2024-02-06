@@ -3,18 +3,20 @@ import { BookController } from "./controllers/bookController.js";
 import cors from "@fastify/cors";
 
 const app = Fastify();
+const bookController = new BookController();
+
 await app.register(cors, {
   origin: ["http://localhost:5500", "http://127.0.0.1:5500"],
 });
-
-const bookController = new BookController();
 
 app.get('/', (request, response) => {
   return response.redirect('/books');
 })
 
 app.get("/books", async (request, response) => {
-  const books = await bookController.showBooks();
+  const { id } = request.query
+
+  const books = await bookController.showBooks(id);
 
   return response.send(books);
 });
