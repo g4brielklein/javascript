@@ -36,8 +36,8 @@ export class BookController {
     return bookDAO.createBookDAO(book);
   };
 
-  showBooks = async (callBackFunction, isUsingCLI) => {
-    const books = await bookDAO.showBooksDAO();
+  showBooks = async (id, callBackFunction, isUsingCLI) => {
+    const books = await bookDAO.showBooksDAO(id);
 
     if (isUsingCLI) {
       console.table(books.rows);

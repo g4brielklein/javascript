@@ -1,7 +1,14 @@
 import { query } from "../database.js";
 
 export class BookDAO {
-  showBooksDAO = async () => {
+  showBooksDAO = async (id) => {
+    if (id) {
+      return query({
+        text: "SELECT * FROM books WHERE id = $1;",
+        values: [id]
+      })
+    }
+
     return query("SELECT * FROM books;");
   };
 
