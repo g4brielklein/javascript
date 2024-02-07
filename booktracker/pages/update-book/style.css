@@ -1,0 +1,58 @@
+main .content .create-book-container {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    gap: 8px;
+    background-color: rgba(0, 0, 0, .4);
+    border-radius: 16px;
+}
+
+main .content .create-book-container .form-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 16px;
+    justify-content: center;
+}
+
+.form-item label {
+    display: flex;
+    justify-content: end;
+    min-width: 100px;
+}
+
+.form-item input {
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    padding: 4px 8px;
+}
+
+.form-item .form-button {
+    background-color: rgba(0, 0, 0, .4);
+    color: white;
+    font-size: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.form-item .form-button:hover {
+    background-color: rgba(0, 0, 0, .8);
+}
+
+#book-id-div {
+    display: none;
+}
+
+#book-id-div.active {
+    display: flex;
+    margin-bottom: 32px;
+}
+
+.search-book-button {
+    background-color: rgba(255, 255, 255, .2);
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
