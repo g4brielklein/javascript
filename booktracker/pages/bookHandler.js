@@ -132,17 +132,44 @@ const openUpdateForm = (id) => {
   window.location = `../update-book/index.html?id=${id}`
 }
 
-const getBookById = async () => {
+const getBookById = async (onload) => {
   const paramId = new URLSearchParams(window.location.search).get('id')
-  const APIUrlGetBookById = `${APIUrl}?id=${paramId}`
 
-  const book = await axios.get(APIUrlGetBookById)
+  if (paramId) {
+    const APIUrlGetBookById = `${APIUrl}?id=${paramId}`
 
-  const { id, name, author } = book.data[0]
+    const book = await axios.get(APIUrlGetBookById)
+  
+    const { id, name, author } = book.data[0]
+  
+    bookName.value = name
+    bookAuthor.value = author
+    formButton.setAttribute('onclick', `updateBook('${id}')`)
 
-  bookName.value = name
-  bookAuthor.value = author
-  formButton.setAttribute('onclick', `updateBook('${id}')`)
+    return
+  }
+
+  const bookIdDiv = document.querySelector('#book-id-div')
+  bookIdDiv.classList.add('active')
+
+  if (!onload) {
+    const bookId = document.querySelector('#book-id').value
+    const APIUrlGetBookById = `${APIUrl}?id=${bookId}`
+
+    const book = await axios.get(APIUrlGetBookById)
+
+    if (!book.data[0]) {
+      return showMessage('error', 'finding')
+    }
+
+    showMessage('success', 'founded')
+
+    const { id, name, author } = book.data[0]
+
+    bookName.value = name
+    bookAuthor.value = author
+    formButton.setAttribute('onclick', `updateBook('${id}')`)
+  }
 }
 
 const updateBook = (id) => {
