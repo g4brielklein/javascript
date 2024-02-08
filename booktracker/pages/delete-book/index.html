@@ -18,10 +18,10 @@
             <div class="result-message"></div>
             <main>
                 <div class="page-title">
-                    <div onclick="goBack()">
+                    <a href="../home/">
                         <ion-icon class="go-back-button" name="arrow-back-outline"></ion-icon>
-                    </div>
-                    <h2>Update book</h2>
+                    </a>
+                    <h2>Delete book</h2>
                 </div>
                 <div class="content">
                     <div class="create-book-container">
@@ -31,17 +31,15 @@
                             <ion-icon class="search-book-button" name="search" onclick="getBookById()"></ion-icon>
                         </div>
                         <div class="form-item">
-                            <label for="book-name">Book name: </label>
-                            <input type="text" id="book-name">
+                            <label for="book-name" id="book-name-label"></label>
                         </div>
                         <div class="form-item">
-                            <label for="book-author">Book author: </label>
-                            <input type="text" id="book-author">
+                            <label for="book-author" id="book-author-label"></label>
                         </div>
                         <div class="form-item">
                             <input 
                                 type="button" 
-                                value="Update book" 
+                                value="Delete book" 
                                 class="form-button"
                             >
                         </div>
