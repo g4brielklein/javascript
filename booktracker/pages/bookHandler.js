@@ -1,4 +1,5 @@
 const APIUrl = "http://localhost:3333/books";
+const isAtShowBooksPage = window.location.pathname === '/pages/show-books/'
 
 const bookName = document.getElementById("book-name");
 const bookAuthor = document.getElementById("book-author");
@@ -95,12 +96,18 @@ const deleteBook = (id) => {
 }
 
 function successDeleteBook () {
-  refreshBookList()
+  if (isAtShowBooksPage) {
+    refreshBookList()
+  }
+
   showMessage('success', 'deleted')
 }
 
 function errorDeleteBook() {
-  refreshBookList()
+  if (isAtShowBooksPage) {
+    refreshBookList()
+  }
+
   showMessage('error', 'deleting')
 }
 
@@ -166,6 +173,17 @@ const getBookById = async (onload) => {
 
     const { id, name, author } = book.data[0]
 
+    if (window.location.pathname === '/pages/delete-book/') {
+      const bookNameLabel = document.querySelector('#book-name-label')
+      const bookAuthorLabel = document.querySelector('#book-author-label')
+      bookNameLabel.innerText = `Book name: ${name}`
+      bookAuthorLabel.innerHTML = `Book author: ${author}`
+
+      formButton.setAttribute('onclick', `deleteBook('${id}')`)
+
+      return
+    }
+
     bookName.value = name
     bookAuthor.value = author
     formButton.setAttribute('onclick', `updateBook('${id}')`)
@@ -187,4 +205,14 @@ const updateBook = (id) => {
     .catch(() => {
       showMessage('error', 'updating')
     })
+}
+
+const goBack = () => {
+  const id = new URLSearchParams(window.location.search).get('id')
+
+  if (id) {
+    return window.location = '/pages/show-books/'
+  }
+
+  return window.location = '/pages/home/'
 }

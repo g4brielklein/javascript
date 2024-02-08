@@ -26,11 +26,14 @@ export class BookController {
     }
 
     const { name, author } = bookToCreate;
+    const createdAt = new Date();
 
     book = {
       id: randomUUID(),
       name,
       author,
+      createdAt,
+      updatedAt: createdAt
     };
 
     return bookDAO.createBookDAO(book);
@@ -87,11 +90,13 @@ export class BookController {
 
     const bookId = bookToUpdate.id;
     const { name, author } = bookToUpdate;
+    const updatedAt = new Date();
 
     bookToUpdate = {
       bookId,
       name,
       author,
+      updatedAt
     };
 
     return bookDAO.updateBookDAO(bookToUpdate, null, null, null, false);

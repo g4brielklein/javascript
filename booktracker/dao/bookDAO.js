@@ -13,11 +13,11 @@ export class BookDAO {
   };
 
   createBookDAO = async (book) => {
-    const { id, name, author } = book;
+    const { id, name, author, createdAt, updatedAt } = book;
 
     return query({
-      text: "INSERT INTO books VALUES ($1, $2, $3);",
-      values: [id, name, author],
+      text: "INSERT INTO books VALUES ($1, $2, $3, $4, $5);",
+      values: [id, name, author, createdAt, updatedAt],
     });
   };
 
@@ -31,11 +31,11 @@ export class BookDAO {
       });
     }
 
-    const { bookId, name, author } = bookToUpdate;
+    const { bookId, name, author, updatedAt } = bookToUpdate;
 
     return await query({
-      text: "UPDATE books SET name = $1, author = $2 WHERE id = $3;",
-      values: [name, author, bookId],
+      text: 'UPDATE books SET name = $1, author = $2, "updatedAt" = $3 WHERE id = $4;',
+      values: [name, author, updatedAt, bookId],
     });
   };
 
