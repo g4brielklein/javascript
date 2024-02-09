@@ -1,7 +1,7 @@
 import { query } from "../database.js";
 
 export class BookDAO {
-  showBooksDAO = async (id) => {
+  showBooksDAO = async (id, order) => {
     if (id) {
       return query({
         text: "SELECT * FROM books WHERE id = $1;",
@@ -9,7 +9,11 @@ export class BookDAO {
       })
     }
 
-    return query("SELECT * FROM books;");
+    if (order === 'DESC') {
+      return query('SELECT * FROM books ORDER BY "updatedAt" DESC;')
+    }
+
+    return query('SELECT * FROM books ORDER BY "updatedAt";')
   };
 
   createBookDAO = async (book) => {

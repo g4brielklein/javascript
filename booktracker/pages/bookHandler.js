@@ -31,8 +31,11 @@ function errorCreateBook(error) {
   showMessage('error', 'creating')
 }
 
-const getBooks = async () => {
-  const books = await axios.get(APIUrl);
+const getBooks = async (listOrder) => {
+  listOrder = listOrder || 'ASC'
+  const APIUrlGet = `${APIUrl}?order=${listOrder}`
+
+  const books = await axios.get(APIUrlGet);
   bookCounter.innerText = `(${books.data.length})`;
 
   books.data.forEach(book => {
@@ -111,11 +114,11 @@ function errorDeleteBook() {
   showMessage('error', 'deleting')
 }
 
-function refreshBookList() {
+function refreshBookList(listOrder) {
   const previousBookCards = document.querySelectorAll('.book-item')
   previousBookCards.forEach(bookCard => bookCard.remove());
 
-  getBooks()
+  getBooks(listOrder)
 }
 
 function showMessage(type, message) {
@@ -174,10 +177,10 @@ const getBookById = async (onload) => {
     const { id, name, author } = book.data[0]
 
     if (window.location.pathname === '/pages/delete-book/') {
-      const bookNameLabel = document.querySelector('#book-name-label')
-      const bookAuthorLabel = document.querySelector('#book-author-label')
-      bookNameLabel.innerText = `Book name: ${name}`
-      bookAuthorLabel.innerHTML = `Book author: ${author}`
+      const bookNameDiv = document.querySelector('#book-name-div')
+      const bookAuthorDiv = document.querySelector('#book-author-div')
+      bookNameDiv.innerText = `Book name: ${name}`
+      bookAuthorDiv.innerHTML = `Book author: ${author}`
 
       formButton.setAttribute('onclick', `deleteBook('${id}')`)
 
@@ -215,4 +218,21 @@ const goBack = () => {
   }
 
   return window.location = '/pages/home/'
+}
+
+const invertListOrder = () => {
+  const invertListButton = document.querySelector('#invert-list-button')
+  let buttonIcon = invertListButton.name
+  let listOrder = 'ASC'
+
+  if (buttonIcon === 'chevron-up-outline') {
+    buttonIcon = 'chevron-down-outline'
+    listOrder = 'DESC'
+  } else {
+    buttonIcon = 'chevron-up-outline'
+    listOrder = 'ASC'
+  }
+
+  invertListButton.setAttribute('name', buttonIcon)
+  refreshBookList(listOrder)
 }
