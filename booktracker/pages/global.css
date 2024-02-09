@@ -77,13 +77,15 @@ a {
 
 .container main .page-title a {
     align-items: center;
+    line-height: 0;
 }
 
-.container main .page-title .go-back-button {
+.container main .page-title .action-button {
     padding: 4px;
+    cursor: pointer;
 }
 
-.container main .page-title .go-back-button:hover {
+.container main .page-title .action-button:hover {
     background-color: rgba(255, 255, 255, 0.2);
     padding: 4px;
     border-radius: 4px;

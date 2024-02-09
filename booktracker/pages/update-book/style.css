@@ -1,3 +1,7 @@
+.page-title div {
+    display: flex;
+}
+
 main .content .create-book-container {
     display: flex;
     flex-direction: column;
