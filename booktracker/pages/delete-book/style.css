@@ -1,4 +1,4 @@
-main .content .create-book-container {
+main .content .delete-book-container {
     display: flex;
     flex-direction: column;
     padding: 8px 0;
@@ -7,7 +7,7 @@ main .content .create-book-container {
     border-radius: 16px;
 }
 
-main .content .create-book-container .form-item {
+main .content .delete-book-container .form-item {
     display: flex;
     align-items: center;
     gap: 8px;

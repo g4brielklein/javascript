@@ -19,22 +19,22 @@
             <main>
                 <div class="page-title">
                     <a href="../home/">
-                        <ion-icon class="go-back-button" name="arrow-back-outline"></ion-icon>
+                        <ion-icon class="action-button" name="arrow-back-outline"></ion-icon>
                     </a>
                     <h2>Delete book</h2>
                 </div>
                 <div class="content">
-                    <div class="create-book-container">
+                    <div class="delete-book-container">
                         <div class="form-item" id="book-id-div">
                             <label for="book-id">Book id: </label>
                             <input type="text" id="book-id">
                             <ion-icon class="search-book-button" name="search" onclick="getBookById()"></ion-icon>
                         </div>
                         <div class="form-item">
-                            <label for="book-name" id="book-name-label"></label>
+                            <div id="book-name-div"></div>
                         </div>
                         <div class="form-item">
-                            <label for="book-author" id="book-author-label"></label>
+                            <div id="book-author-div"></div>
                         </div>
                         <div class="form-item">
                             <input 
