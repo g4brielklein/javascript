@@ -1,5 +1,7 @@
-import { bookController } from "./controllers/bookController.js";
+import { BookControllerCLI } from "./controllers/bookControllerCLI.js";
 import keypress from "keypress";
+
+const bookController = new BookControllerCLI();
 
 const operations = ["create", "read (show all)", "update", "delete", "status"];
 keypress(process.stdin);

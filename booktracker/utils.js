@@ -1,39 +1,41 @@
-const prompt = require('prompt-sync')({ sigint: true });
-const bookDAO = require('./dao/bookDAO');
+import { BookDAO } from './dao/bookDAO.js';
+import promptSync from 'prompt-sync';
+const bookDAO = new BookDAO();
+const prompt = promptSync();
 
-checkIfIdAlreadyExists = async (id) => {
-    const foundedId = await bookDAO.getBookById(id);
+export class Utils {
+    checkIfIdAlreadyExists = async (id) => {
+        const foundedId = await bookDAO.getBookById(id);
 
-    return foundedId.rows[0];
-}
-
-createNewId = async () => {
-    const lastBookId = await bookDAO.getLastAddedBook();
-
-    const newId = lastBookId.rows[0].id + 1
-
-    const idAlreadyExists = await checkIfIdAlreadyExists(newId);
-
-    if (idAlreadyExists) {
-        return console.log('[ERROR]: Error generating new id')
+        return foundedId.rows[0];
     }
 
-    return newId;
-};
+    createNewId = async () => {
+        const lastBookId = await bookDAO.getLastAddedBook();
 
-showSuccessMessage = (action) => {
-    const actionMessage = action ? `Book successfully ${action}` : 'Success'
-    console.log(`\n${actionMessage}\n`)
-}
+        const newId = lastBookId.rows[0].id + 1
 
-handleContinueOperations = (callBackFunction) => {
-    const wantToContinue = prompt('Do you want to do another operation? (yes/no) ').toLowerCase();
+        const idAlreadyExists = await checkIfIdAlreadyExists(newId);
 
-    if (wantToContinue === 'yes' || wantToContinue === 'y' || wantToContinue === '') {
-        return callBackFunction.activate();
-    } else if (wantToContinue === 'no' || wantToContinue === 'n') {
-        return console.log('Operation finished')
+        if (idAlreadyExists) {
+            return console.log('[ERROR]: Error generating new id')
+        }
+
+        return newId;
+    };
+
+    showSuccessMessage = (action) => {
+        const actionMessage = action ? `Book successfully ${action}` : 'Success'
+        console.log(`\n${actionMessage}\n`)
+    }
+
+    handleContinueOperations = (callBackFunction) => {
+        const wantToContinue = prompt('Do you want to do another operation? (yes/no) ').toLowerCase();
+
+        if (wantToContinue === 'yes' || wantToContinue === 'y' || wantToContinue === '') {
+            return callBackFunction.activate();
+        } else if (wantToContinue === 'no' || wantToContinue === 'n') {
+            return console.log('Operation finished')
+        }
     }
 }
-
-module.exports = { checkIfIdAlreadyExists, createNewId, showSuccessMessage, handleContinueOperations };

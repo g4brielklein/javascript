@@ -15,7 +15,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch --no-warnings server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "cli": "node app.js"
   },
   "author": "gabrielklein",
   "license": "ISC",
