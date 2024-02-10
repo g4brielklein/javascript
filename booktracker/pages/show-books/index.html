@@ -13,7 +13,7 @@
         <div class="container">
             <header>
                 <img src="https://cdn2.iconfinder.com/data/icons/boxicons-solid-vol-1/24/bxs-book-open-48.png" alt="Logo showing an opened book">
-                <h1>BookTrackr</h1>
+                <h1 onclick="goBack()">BookTrackr</h1>
             </header>
             <div class="result-message"></div>
             <main>
@@ -31,6 +31,10 @@
                     ></ion-icon>
                 </div>
                 <div class="content">
+                    <div class="show-books-search">
+                        <input id="search-input" type="text" placeholder="Search">
+                        <input id="search-button" type="button" value="Search" onclick="handleSearch()">
+                    </div>
                     <div class="show-books-container"></div>
                 </div>
             </main>

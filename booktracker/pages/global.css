@@ -37,6 +37,10 @@ a {
     width: 40px;
 }
 
+.container header h1 {
+    cursor: pointer;
+}
+
 .container .result-message {
     display: flex;
     background-color: rgb(50, 116, 27);

@@ -6,6 +6,25 @@
     font-weight: normal;
 }
 
+.show-books-search {
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    gap: 8px;
+}
+
+.show-books-search input {
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 4px 8px;
+}
+
+.show-books-search #search-button {
+    background-color: rgba(0, 0, 0, .4);
+    color: white;
+    cursor: pointer;
+}
+
 .show-books-container {
     display: flex;
     flex-direction: column;
