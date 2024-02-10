@@ -1,7 +1,7 @@
 import { query } from "../database.js";
 
 export class BookDAO {
-  showBooksDAO = async (id, order) => {
+  showBooksDAO = async (id, order, searchTerm, isUsingCLI) => {
     if (id) {
       return query({
         text: "SELECT * FROM books WHERE id = $1;",
@@ -11,6 +11,21 @@ export class BookDAO {
 
     if (order === 'DESC') {
       return query('SELECT * FROM books ORDER BY "updatedAt" DESC;')
+    }
+
+    if (searchTerm) {
+      return query({
+        text: `
+          SELECT * FROM books 
+          WHERE name ILIKE $1
+          OR author ILIKE $1;
+        `,
+        values: [`%${searchTerm}%`],
+      })
+    }
+
+    if (isUsingCLI) {
+      return query('SELECT id, name, author FROM books ORDER BY "updatedAt";')
     }
 
     return query('SELECT * FROM books ORDER BY "updatedAt";')

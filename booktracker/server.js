@@ -14,9 +14,9 @@ app.get('/', (request, response) => {
 })
 
 app.get("/books", async (request, response) => {
-  const { id, order } = request.query
+  const { id, order, search } = request.query
 
-  const books = await bookController.showBooks(id, order);
+  const books = await bookController.showBooks(id, order, search);
 
   return response.send(books);
 });

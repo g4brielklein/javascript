@@ -31,9 +31,13 @@ function errorCreateBook(error) {
   showMessage('error', 'creating')
 }
 
-const getBooks = async (listOrder) => {
+const getBooks = async (listOrder, searchTerm) => {
   listOrder = listOrder || 'ASC'
-  const APIUrlGet = `${APIUrl}?order=${listOrder}`
+  let APIUrlGet = `${APIUrl}?order=${listOrder}`
+
+  if (searchTerm) {
+    APIUrlGet = `${APIUrl}?search=${searchTerm}`
+  }
 
   const books = await axios.get(APIUrlGet);
   bookCounter.innerText = `(${books.data.length})`;
@@ -114,11 +118,11 @@ function errorDeleteBook() {
   showMessage('error', 'deleting')
 }
 
-function refreshBookList(listOrder) {
+function refreshBookList(listOrder, searchTerm) {
   const previousBookCards = document.querySelectorAll('.book-item')
   previousBookCards.forEach(bookCard => bookCard.remove());
 
-  getBooks(listOrder)
+  getBooks(listOrder, searchTerm)
 }
 
 function showMessage(type, message) {
@@ -235,4 +239,10 @@ const invertListOrder = () => {
 
   invertListButton.setAttribute('name', buttonIcon)
   refreshBookList(listOrder)
+}
+
+const handleSearch = () => {
+  const searchInput = document.querySelector('#search-input').value;
+
+  refreshBookList(null, searchInput)
 }
