@@ -40,13 +40,18 @@ export class BookDAO {
     });
   };
 
-  updateBookDAO = async (bookToUpdate, id, column, newValue, isUsingCLI) => {
+  updateBookDAO = async (bookToUpdate, id, column, newInfos, isUsingCLI) => {
     if (isUsingCLI) {
-      const updateQuery = `UPDATE books SET ${column} = $1 WHERE id = $2;`;
+      const updateQuery = `
+        UPDATE books 
+        SET ${column} = $1,
+        "updatedAt" = $2
+        WHERE id = $3;
+      `;
 
-      return await database.query({
+      return query({
         text: updateQuery,
-        values: [newValue, id],
+        values: [newInfos.value, newInfos.updatedAt, id],
       });
     }
 
@@ -66,7 +71,7 @@ export class BookDAO {
   };
 
   getBookById = async (id) => {
-    return database.query({
+    return query({
       text: "SELECT * FROM books WHERE id = $1",
       values: [id],
     });

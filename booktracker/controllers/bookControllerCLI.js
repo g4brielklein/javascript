@@ -34,57 +34,43 @@ export class BookControllerCLI {
     console.table(books.rows);
     return utils.handleContinueOperations(callBackFunction);
   };
+  
+  updateBook = async (callBackFunction) => {
+    const bookToUpdate = prompt("Type the id of the book to be updated: ");
 
-  updateBook = async (bookToUpdate, isUsingCLI, callBackFunction) => {
-    if (isUsingCLI) {
-      const bookToUpdate = prompt("Type the id of the book to be updated: ");
-
-      if (!bookToUpdate) {
-        return console.log("You have to type an id in order to update a book");
-      }
-
-      const idExists = await utils.checkIfIdAlreadyExists(bookToUpdate);
-
-      if (!idExists) {
-        return console.log(`[ERROR]: Typed id ${bookToUpdate} dont exists`);
-      }
-
-      const infoToBeUpdated = prompt(
-        "Which info do you want to update? (name or author) ",
-      );
-      let newInfo = null;
-
-      if (infoToBeUpdated === "name") {
-        newInfo = prompt("And what is going to be the new name? ");
-      } else if (infoToBeUpdated === "author") {
-        newInfo = prompt("And what is going to be the new author? ");
-      } else if (infoToBeUpdated === "id") {
-        return console.log("Book's id cannot be updated");
-      } else {
-        return console.log(`"${infoToBeUpdated}" info dont exists`);
-      }
-
-      if (!bookToUpdate || !infoToBeUpdated || !newInfo) {
-        return console.log("Type all informations");
-      }
-
-      await bookDAO.updateBookDAO(bookToUpdate, infoToBeUpdated, newInfo);
-      utils.showSuccessMessage("updated");
-      return utils.handleContinueOperations(callBackFunction);
+    if (!bookToUpdate) {
+      return console.log("You have to type an id in order to update a book");
     }
 
-    const bookId = bookToUpdate.id;
-    const { name, author } = bookToUpdate;
-    const updatedAt = new Date();
+    const idExists = await utils.checkIfIdAlreadyExists(bookToUpdate);
 
-    bookToUpdate = {
-      bookId,
-      name,
-      author,
-      updatedAt
-    };
+    if (!idExists) {
+      return console.log(`[ERROR]: Typed id ${bookToUpdate} dont exists`);
+    }
 
-    return bookDAO.updateBookDAO(bookToUpdate, null, null, null, false);
+    const infoToBeUpdated = prompt(
+      "Which info do you want to update? (name or author) ",
+    );
+    let newInfos = {};
+    newInfos.updatedAt = new Date();
+
+    if (infoToBeUpdated === "name") {
+      newInfos.value = prompt("And what is going to be the new name? ");
+    } else if (infoToBeUpdated === "author") {
+      newInfos.value = prompt("And what is going to be the new author? ");
+    } else if (infoToBeUpdated === "id") {
+      return console.log("Book's id cannot be updated");
+    } else {
+      return console.log(`"${infoToBeUpdated}" info dont exists`);
+    }
+
+    if (!bookToUpdate || !infoToBeUpdated || !newInfos.value) {
+      return console.log("Type all informations");
+    }
+
+    await bookDAO.updateBookDAO(null, bookToUpdate, infoToBeUpdated, newInfos, true);
+    utils.showSuccessMessage("updated");
+    return utils.handleContinueOperations(callBackFunction);
   };
 
   deleteBook = async (id, isUsingCLI, callBackFunction) => {
