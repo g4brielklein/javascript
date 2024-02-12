@@ -84,10 +84,10 @@ export class BookDAO {
   };
 
   getStatusDAO = async () => {
-    const count = await database.query(
+    const count = await query(
       "SELECT count(*)::int AS totalBooks, count(DISTINCT author)::int AS totalAuthors FROM books;",
     );
-    const mostReadedAuthors = await database.query(
+    const mostReadedAuthors = await query(
       `
                 WITH author_books_count AS (SELECT DISTINCT author, COUNT(1) AS count FROM books GROUP BY 1)
 

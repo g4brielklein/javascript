@@ -73,26 +73,22 @@ export class BookControllerCLI {
     return utils.handleContinueOperations(callBackFunction);
   };
 
-  deleteBook = async (id, isUsingCLI, callBackFunction) => {
-    if (isUsingCLI) {
-      const bookToDelete = prompt("Type the id of the book to be deleted: ");
+  deleteBook = async (callBackFunction) => {
+    const bookToDelete = prompt("Type the id of the book to be deleted: ");
 
-      if (!bookToDelete) {
-        return console.log("You have to type an id in order to delete a book");
-      }
-
-      const idExists = await utils.checkIfIdAlreadyExists(bookToDelete);
-
-      if (!idExists) {
-        return console.log(`[ERROR]: Typed id ${bookToDelete} dont exists`);
-      }
-
-      await bookDAO.deleteBookDAO(bookToDelete);
-      utils.showSuccessMessage("deleted");
-      return utils.handleContinueOperations(callBackFunction);
+    if (!bookToDelete) {
+      return console.log("You have to type an id in order to delete a book");
     }
 
-    return bookDAO.deleteBookDAO(id);
+    const idExists = await utils.checkIfIdAlreadyExists(bookToDelete);
+
+    if (!idExists) {
+      return console.log(`[ERROR]: Typed id ${bookToDelete} dont exists`);
+    }
+
+    await bookDAO.deleteBookDAO(bookToDelete);
+    utils.showSuccessMessage("deleted");
+    return utils.handleContinueOperations(callBackFunction);
   };
 
   getStatus = async (callBackFunction) => {
