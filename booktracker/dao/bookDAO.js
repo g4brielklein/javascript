@@ -55,9 +55,10 @@ export class BookDAO {
       });
     }
 
-    const { bookId, name, author, updatedAt } = bookToUpdate;
+    const { name, author, updatedAt } = bookToUpdate;
+    const bookId = bookToUpdate.id;
 
-    return await query({
+    return query({
       text: 'UPDATE books SET name = $1, author = $2, "updatedAt" = $3 WHERE id = $4;',
       values: [name, author, updatedAt, bookId],
     });

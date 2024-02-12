@@ -10,20 +10,6 @@ export class Utils {
         return foundedId.rows[0];
     }
 
-    createNewId = async () => {
-        const lastBookId = await bookDAO.getLastAddedBook();
-
-        const newId = lastBookId.rows[0].id + 1
-
-        const idAlreadyExists = await checkIfIdAlreadyExists(newId);
-
-        if (idAlreadyExists) {
-            return console.log('[ERROR]: Error generating new id')
-        }
-
-        return newId;
-    };
-
     showSuccessMessage = (action) => {
         const actionMessage = action ? `Book successfully ${action}` : 'Success'
         console.log(`\n${actionMessage}\n`)
