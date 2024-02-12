@@ -77,12 +77,6 @@ export class BookDAO {
     });
   };
 
-  getLastAddedBook = async () => {
-    return database.query(
-      "SELECT * FROM books WHERE id = (SELECT MAX(id) FROM books);",
-    );
-  };
-
   getStatusDAO = async () => {
     const count = await query(
       "SELECT count(*)::int AS totalBooks, count(DISTINCT author)::int AS totalAuthors FROM books;",
