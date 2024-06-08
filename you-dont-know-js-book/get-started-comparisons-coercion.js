@@ -2,16 +2,18 @@ const dayStart = "07:30"
 const dayEnd = "17:45"
 
 function scheduleMeeting(startTime, durationMinutes) {
-    const isStartTimeValid = startTime >= dayStart
-
     const [h, m] = startTime.split(':')
     const date = new Date()
     date.setUTCHours(h, m, 0)
+    const meetingStartHour = date.getUTCHours() >= 10 ? date.getUTCHours() : `0${date.getUTCHours()}`
+    const meetingStartTime = `${meetingStartHour}:${date.getMinutes()}`
+    
+    const isStartTimeValid = meetingStartTime >= dayStart
 
     const sum = date.getMinutes() + durationMinutes
     date.setMinutes(sum)
-    const meetingEndHours = date.getUTCHours() >= 10 ? date.getUTCHours() : `0${date.getUTCHours()}`
-    const meetingEndTime = `${meetingEndHours}:${date.getMinutes()}`
+    const meetingEndHour = date.getUTCHours() >= 10 ? date.getUTCHours() : `0${date.getUTCHours()}`
+    const meetingEndTime = `${meetingEndHour}:${date.getMinutes()}`
 
     const isEndTimeValid = meetingEndTime <= dayEnd
 
