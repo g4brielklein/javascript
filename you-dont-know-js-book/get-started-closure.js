@@ -1,27 +1,33 @@
 function range(start, end) {
-    if (!end) {
+    start = Number(start) || 0
+
+    if (end === undefined) {
         return function range(end) {
-            const range = []
-
-            for (let i = start; i <= end; i++) {
-                range.push(i)
-            }
-
-            return range
+            return getRange(start, end)
         }
     }
 
-    const range = []
+    return getRange(start, end)
+    
+    function getRange(start, end) {
+        end = Number(end) || 0
 
-    for (let i = start; i <= end; i++) {
-        range.push(i)
+        if (start > end) {
+            return []
+        }
+
+        const rangeArray = []
+
+        for (let i = start; i <= end; i++) {
+            rangeArray.push(i)
+        }
+    
+        return rangeArray
     }
-
-    return range
 }
 
 // console.log(range(5, 8))
 
 const returnedData = range(3)
 
-console.log(returnedData(5))
+console.log(returnedData(10))
