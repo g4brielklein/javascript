@@ -3,6 +3,10 @@ const dayEnd = "17:45"
 const timezoneOffset = -3
 
 function scheduleMeeting(startTime, meetingDuration) {
+    if (typeof meetingDuration !== 'number' || meetingDuration < 1) {
+        return false
+    }
+
     const dayStartTransformed = new Date(`2024-01-01 ${dayStart}`)
     dayStartTransformed.setHours(dayStartTransformed.getHours() + timezoneOffset)
 
@@ -19,4 +23,4 @@ function scheduleMeeting(startTime, meetingDuration) {
     return startTimeTransformed >= dayStartTransformed && endTimeTransformed <= dayEndTransformed
 }
 
-console.log(scheduleMeeting("14:00", 15))
+console.log(scheduleMeeting("14:00", 30))
