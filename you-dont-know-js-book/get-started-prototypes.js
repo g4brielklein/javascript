@@ -4,16 +4,14 @@ function randMax(max) {
 
 var reel = {
     symbols: ["X", "Y", "Z", "W", "$", "*", "<", "@"],
-    spin: () => {
-        console.log(this.symbols)
-
+    spin: function() {
         if (this.position == null) {
             this.position = randMax(this.symbols.length - 1)
         }
 
-        this.position = (this.position + 100 + randMax(100) % this.symbols.length)
+        this.position = (this.position + 100 + randMax(100)) % this.symbols.length
     },
-    display: () => {
+    display: function() {
         if (this.position == null) {
             this.position = randMax(this.symbols.length - 1)
         }
@@ -28,13 +26,32 @@ var slotMachine = {
         Object.create(reel),
         Object.create(reel)
     ],
-    spin: () => {
-        console.log(this.reels)
+    spin: function() {
+        this.reels.forEach((reel) => {
+            reel.spin()
+        })
+    },
+    display: function() {
+        let rows = ['', '', '']
+
+        for (let i = 0; i < rows.length; i++) {
+            let reelCount = 0
+
+            this.reels.forEach((reel) => {
+                let reelLine = Object.create(reel)
+                reelLine.spin()
+
+                reelCount++
+
+                reelCount < 3 
+                    ? rows[i] += `${reelLine.display()} | `
+                    : rows[i] += reelLine.display()
+            })
+
+            console.log(rows[i])
+        }
     }
 }
 
-console.log(slotMachine.reels[0])
-slotMachine.reels[0].position = 0
-slotMachine.reels[1].position = 1
-slotMachine.reels[2].position = 2
-console.log(slotMachine.reels)
+slotMachine.spin()
+slotMachine.display()
