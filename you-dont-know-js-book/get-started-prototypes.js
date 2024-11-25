@@ -2,7 +2,7 @@ function randMax(max) {
     return Math.trunc(1E9 * Math.random()) % max
 }
 
-var reel = {
+const reel = {
     symbols: ["X", "Y", "Z", "W", "$", "*", "<", "@"],
     spin: function() {
         if (this.position == null) {
@@ -20,7 +20,7 @@ var reel = {
     }
 }
 
-var slotMachine = {
+const slotMachine = {
     reels: [
         Object.create(reel),
         Object.create(reel),
@@ -32,24 +32,20 @@ var slotMachine = {
         })
     },
     display: function() {
-        let rows = ['', '', '']
+        let rows = []
 
-        for (let i = 0; i < rows.length; i++) {
-            let reelCount = 0
+        for (let i = -1; i <= 1; i++ ) {
+            let row = this.reels.map((reel) => {
+                let slot = Object.create(reel)
+                slot.position = (reel.symbols.length + reel.position + i) % reel.symbols.length
 
-            this.reels.forEach((reel) => {
-                let reelLine = Object.create(reel)
-                reelLine.spin()
-
-                reelCount++
-
-                reelCount < 3 
-                    ? rows[i] += `${reelLine.display()} | `
-                    : rows[i] += reelLine.display()
+                return slot.display()
             })
 
-            console.log(rows[i])
+            rows.push(row.join(' | '))
         }
+
+        console.log(rows.join('\n'))
     }
 }
 
